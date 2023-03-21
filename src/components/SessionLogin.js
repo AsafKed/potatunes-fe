@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import favicon from '../assets/favicon.ico';
 
 function SessionLogin() {
-  const [spotifyLink, setSpotifyLink] = useState('');
-  const [listeningSessionId, setListeningSessionId] = useState('');
-  // Get CLIENT_ID and REDIRECT_URI from the environment variables
-  const spotifyLoginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.CLIENT_ID}&response_type=token&redirect_uri=${process.env.REDIRECT_URI}&state=${listeningSessionId}`;
-
+  const [listeningSessionId, setListeningSessionId] = useState(`${Math.random().toString(36).substring(2, 15)}`);
+  const [spotifyLink, setSpotifyLink] = useState(`https://potatunes.com/${listeningSessionId}`);
+  
   // This function generates a new listening session ID and updates the QR code
   function handleNewSession() {
-    const newListeningSessionId = Math.random().toString(36).substring(2, 15);
-    setListeningSessionId(newListeningSessionId);
-    setSpotifyLink(`https://example.com/${newListeningSessionId}`);
+    setListeningSessionId(Math.random().toString(36).substring(2, 15));
+    setSpotifyLink(`https://potatunes.com/${listeningSessionId}`);
   }
 
   // Define custom styles for the QR code
   const qrCodeStyle = {
-    border: '5px solid #ccc',
-    borderRadius: '10px',
+    // border: '5px solid #ccc',
+    // borderRadius: '10px',
     margin: '20px',
     padding: '20px',
   };
@@ -36,23 +34,7 @@ function SessionLogin() {
 
   return (
     <div>
-      {/* <QRCodeSVG value={spotifyLink} style={qrCodeStyle} key={listeningSessionId} onScan={handleScan} /> */}
-      <QRCodeSVG
-        value={"https://www.spotify.com/us/account/overview/?utm_source=spotify&utm_medium=menu&utm_campaign=your_account"}
-        size={128}
-        bgColor={"#ffffff"}
-        fgColor={"#000000"}
-        level={"L"}
-        includeMargin={false}
-        // imageSettings={{
-        //   src: "Spotify.png",
-        //   x: undefined,
-        //   y: undefined,
-        //   height: 24,
-        //   width: 24,
-        //   excavate: true,
-        // }}
-      />
+      <QRCodeSVG value={spotifyLink} style={qrCodeStyle} key={listeningSessionId} />
       <button style={buttonStyle} onClick={handleNewSession}>New listening session</button>
     </div>
   );

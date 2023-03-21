@@ -11,7 +11,7 @@ function QRHost() {
 
     const handleFetchJson = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8081/testjson');
+            const response = await fetch('http://127.0.0.1:5000/testjson');
             const data = await response.json();
             setJson(data);
             setEditedJson(JSON.stringify(data, null, 2));
@@ -22,7 +22,7 @@ function QRHost() {
 
     const handlePutJson = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8081/testjson', {
+            const response = await fetch('http://127.0.0.1:5000/testjson', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
