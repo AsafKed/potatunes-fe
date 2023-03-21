@@ -39,10 +39,12 @@ function QRHost() {
 
     return (
         <div>
+            {/* TODO: GET users from the backend and set these as props for the SessionLogin */}
+            {/* https://stackoverflow.com/questions/61789285/how-to-use-an-api-webhook-in-react-to-receive-notifictions */}
             <SessionLogin />
 
             {/* JSON test */}
-            <div>
+            {/* <div>
                 <button onClick={handleFetchJson}>Fetch JSON</button>
                 <br />
                 <br />
@@ -56,7 +58,7 @@ function QRHost() {
                 <br />
                 <br />
                 {json && <JSONViewer json={json} />}
-            </div>
+            </div> */}
         </div>
     );
 }
