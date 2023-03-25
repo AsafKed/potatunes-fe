@@ -46,13 +46,13 @@ function QRHost() {
     // };
 
     const { session_id } = useParams();
+    const spotifyAuthLink = `${AUTH_URL}&state=${session_id}`;
     console.log('session_id: ' + session_id);
-    const [listeningSessionId, setListeningSessionId] = useState(session_id);
-    const [spotifyAuthLink, setSpotifyAuthLink] = useState(`${AUTH_URL}&state=${listeningSessionId}`);
 
-    // TODO: store the listeningSessionId as a cookie so that it persists across page refreshes
     // This function generates a new listening session ID and updates the QR code
-    const getNewSession = Math.random().toString(36).substring(2, 15);
+    function getNewSession() {
+        return Math.random().toString(36).substring(2, 15);
+    } 
 
     // Define custom styles for the QR code
     const qrCodeStyle = {
@@ -101,10 +101,11 @@ function QRHost() {
                 <br />
                 {json && <JSONViewer json={json} />}
             </div> */}
-            <QRCodeSVG value={spotifyAuthLink} style={qrCodeStyle} key={listeningSessionId} />
+            {/* TODO if the QR is scanned, it needs to do a redirect to the phone's UI (this needs to be done with help from the BE) */}
+            <QRCodeSVG value={spotifyAuthLink} style={qrCodeStyle} key={session_id} />
             <p>Scan the QR code to join the listening session. Or, click the button below to generate a new listening session.</p>
             <div>
-                <Link style={buttonStyle} to={"/session_id/"+getNewSession}>New listening session</Link>
+                <Link style={buttonStyle} to={"/session_id/"+getNewSession()}>New listening session</Link>
                 <a style={buttonStyle} href={spotifyAuthLink}>Add user</a>
             </div>
         </div>
