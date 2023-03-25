@@ -1,16 +1,14 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import QRHost from './pages/QRHost.js';
-
 
 function App() {
   return (
-    <Router>
       <Routes>
-        <Route path="/" element={<QRHost/>} />
+        <Route path="/" element={<Navigate to={"/session_id/" + Math.random().toString(36).substring(2, 15)} />}/>
+        <Route path="/session_id/:session_id" element={<QRHost/>} />
       </Routes>
-    </Router>
   );
 }
 
